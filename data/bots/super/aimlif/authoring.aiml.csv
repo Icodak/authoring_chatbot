@@ -10,6 +10,6 @@
 0,CORK CITY,*,LOCATION,Delivery to Cork City will be e4.99,authoring.aiml
 0,DESK,*,*,Looks like you are looking for desks! In stock we have available:#Newline                - #125863 OAK DESK e200.00#Newline                - #865452 ANGLED DESK BLACK e350.00#Newline                - #987451 WOODEN LAPTOP DESK e150.00#Newline.,authoring.aiml
 0,OAK DESK,*,*,Information about product #125863 OAK DESK e200.00#Newline                - Oak finish#Newline                - 3 years warranty#Newline                - Three drawers#Newline                - Great for students!#Newline.,authoring.aiml
-0,ANGLED DESK BLACK,*,*,Information about product #865452 ANGLED DESK BLACK e350.00#Newline                - slick black#Newline                - 4 years warranty#Newline.,authoring.aiml
-0,WOODEN LAPTOP DESK,*,*,Information about product #987451 WOODEN LAPTOP DESK e150.00#Newline                - varnished wood#Newline                - 2 years warranty#Newline.,authoring.aiml
+0,ANGLED DESK BLACK,*,*,Information about product #865452 ANGLED DESK BLACK e350.00#Newline                - slick black#Newline                - 4 years warranty#Newline,authoring.aiml
+0,WOODEN LAPTOP DESK,*,*,Information about product #987451 WOODEN LAPTOP DESK e150.00#Newline                - varnished wood#Newline                - 2 years warranty#Newline,authoring.aiml
 0,CONTACT,*,*,The store contact information is 021456987#Newline            We are open from MON - SUN 10.00 - 6.00,authoring.aiml

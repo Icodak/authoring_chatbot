@@ -14,6 +14,10 @@ import java.util.List;
 GUIController controller;
 IFTextField userInput;
 PFont poppins;
+color textColor;
+color backgroundColorBot;
+color backgroundColorHuman;
+color backgroundColor;
 
 // Chatbot elements
 Bot botter;
@@ -24,39 +28,52 @@ float scrollValue;
 void setup() {
     size(500, 800);
     scrollValue = 0.0;
-    noStroke();
+    setupUI();
+    setupConversation();
+    welcomeMessage();
+}
+
+void draw() {
+    background(backgroundColor);
+    conversation.display();
+}
+
+
+void setupUI() {
     controller = new GUIController(this);
     userInput = new IFTextField("User Input", 0, height - 30, width);
-    
     controller.add(userInput);
     userInput.addActionListener(this);
     
     poppins = createFont("Poppins-Regular.ttf", 14);
     textFont(poppins);
     
+    noStroke();
+    textColor = color(#ffffff);
+    backgroundColorBot = color(#cd5334);
+    backgroundColorHuman = color(#169F9C);
+    backgroundColor = color(#2E282A);
     
-    conversation = new Conversation(); //iug
+}
+
+void setupConversation() {
+    conversation = new Conversation();
     botter = new Bot("super", dataPath(""));
     chatSession = new Chat(botter);
+}
+
+void welcomeMessage() {
     String welcome = chatSession.multisentenceRespond("help");
     conversation.add(new ChatMessage(welcome,SenderType.BOT));
 }
-
-
-void draw() {
-    background(#2E282A);
-    conversation.display();
-}
-
 
 void sendToBot(String message) {
     String response = chatSession.multisentenceRespond(message);
     
     conversation
-   .add(new ChatMessage(message,SenderType.HUMAN))
-       .add(new ChatMessage(response,SenderType.BOT));
+        .add(new ChatMessage(message,SenderType.HUMAN))
+        .add(new ChatMessage(response,SenderType.BOT));
 }
-
 
 void actionPerformed(GUIEvent element) {
     if (element.getMessage().equals("Completed")) {
@@ -65,7 +82,6 @@ void actionPerformed(GUIEvent element) {
         sendToBot(userMessage);
     }
 }
-
 
 void mouseWheel(MouseEvent event) {
     float e = event.getCount();
@@ -86,7 +102,6 @@ class Conversation {
         padding = 5;
     }
     
-    
     public Conversation add(ChatMessage message) {
         conversation.add(message);
         return this;
@@ -96,19 +111,19 @@ class Conversation {
         float offset = scrollValue + 20;
         int lineCount = 0;
         int messageHeight = 0;
-        
         float x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+
         for (ChatMessage message : conversation) {
+
             lineCount = 0;
-            //lineCount = message.message.split("\n", -1).length + 1;
-            for (String line : message.message.split("\n", -1)){
-                lineCount += ceil(textWidth(line)/width);
+            for (String line : message.message.split("\n", -1)) {
+                lineCount += ceil(textWidth(line) / width);
             }
+            messageHeight = 20 * (lineCount + 1);
 
 
-            messageHeight = 20 * (lineCount+1);
             if (message.senderType == SenderType.HUMAN) {
-                fill(#169F9C);
+                fill(backgroundColorHuman);
                 x1 = 0;
                 y1 = offset;
                 x2 = min(textWidth(message.message) + padding,width - 10 - padding * 2);
@@ -116,16 +131,19 @@ class Conversation {
                 
             }
             if (message.senderType == SenderType.BOT) {
-                fill(#cd5334);
+                fill(backgroundColorBot);
                 x1 = max(10,width - textWidth(message.message) - 10 - padding * 2);
                 y1 = offset;
                 x2 = width;
                 y2 = messageHeight;
                 
             }
+
             rect(x1 - padding,y1 - padding,x2 + padding * 2,y2 + padding,10,10,10,10);
-            fill(#ffffff);
+            
+            fill(textColor);
             text(message.message,x1 + padding,y1 + padding,x2,y2);
+
             offset += messageHeight + messageSpacing;
         }
     }
